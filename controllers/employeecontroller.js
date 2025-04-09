@@ -7,10 +7,8 @@ const { generateToken } = require("../utils/generateTokens");
 //registration
 module.exports.registeremployee = async function (req, res) {
   let { name, employeeid, email, password } = req.body;
-  let employee = await employeeModel.findOne({ email: email });
-  if (employee) {
-    return res.redirect("/");
-  }
+  let employee = await employeeModel.findOne({ email, employeeid });
+  if (employee) return res.send("Alreay Registerd");
 
   bcrypt.genSalt(10, function (err, salt) {
     if (err) return res.send(err.message);
@@ -33,43 +31,34 @@ module.exports.registeremployee = async function (req, res) {
 
 //loginuser
 module.exports.loginemployee = async function (req, res) {
-    let {email, password} = req.body;
-    let employee = await employeeModel.findOne({email: email});
-    if(!employee) {
-      console.log("Email or password incorrect")
-         //req.flash("Email or password incorrect");
-        //return res.redirect("/loginuser")
-    }
-
-    else
-    bcrypt.compare(password, employee.password, function(err, result){
-    if(result)
-    {
+  let { email, employeeid, password } = req.body;
+  let employee = await employeeModel.findOne({ email, employeeid });
+  if (!employee) {
+    res.send("Email or password incorrect");
+    //req.flash("Email or password incorrect");
+    //return res.redirect("/loginuser")
+  } else
+    bcrypt.compare(password, employee.password, function (err, result) {
+      if (result) {
         let token = generateToken(employee);
         res.cookie("token", token);
-    }
-    else{
-        req.flash("Email or password incorrect");
-    }
-})
+        res.send('logged in');
+      } else {
+        req.send("Email or password incorrect");
+      }
+    });
 };
 
 module.exports.logout = async function (req, res) {
-    res.cookie("token", "");
-   // res.redirect("/");    
-}
+  res.cookie("token", "");
+  res.send("logged out");
+  // res.redirect("/");
+};
 module.exports.deleteemployee = async function (req, res) {
-    let employee = await employeeModel.findById(req.params.id);
-    if(!employee) {
-      console.log("User not found");
-        //req.flash("User not found");
-    }
-    else{
-    await employeeModel.findByIdAndDelete(employee._id);
-    res.cookie("token", "");
-    //res.redirect("/"); 
-    //req.flash("User id deleted Successfully!");
+  let deletedEmployee = await employeeModel.findOneAndDelete({_id:req.params.id});
+  res.cookie("token", "");
+  res.send(deletedEmployee);
+  //   //res.redirect("/");
+  //   //req.flash("User id deleted Successfully!");
 
-    }    
-    
-}
+};
