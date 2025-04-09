@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
   IFSC: String,
   email: String,
   MPIN: Number,
-  Password: String,
+  password: String,
   Balance: Number,
   Online_Registered: {
     type: Boolean,
