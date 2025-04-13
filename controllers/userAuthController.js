@@ -12,6 +12,8 @@ module.exports.registerUser = async (req, res)=>{
          if(err) return console.log(err.message);
          if(result){
             foundedUser.Online_Registered = true;
+            let token = generateToken(foundedUser, "user");
+            res.cookie("token", token);
             res.send("registered");
          }
          else {
@@ -31,6 +33,8 @@ module.exports.loginUser = async (req, res)=>{
       bcrypt.compare(password, foundedUser.password,async (err, result)=> {
          if(err) return console.log(err.message);
          if(result){
+            let token = generateToken(foundedUser, "user");
+            res.cookie("token", token);
             res.send("logged in");
          }
          else {
