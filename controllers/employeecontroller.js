@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const flash = require("connect-flash");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils/generateTokens");
+const customerModel = require("../models/user-model");
 
 //registration
 module.exports.registeremployee = async function (req, res) {
@@ -54,6 +55,29 @@ module.exports.logout = async function (req, res) {
   res.send("logged out");
   // res.redirect("/");
 };
+module.exports.registercustomer = async function (req, res) {
+  let { name, Ph_No, AccNo, Branch, IFSC, email, password} = req.body;
+  let customer = await customerModel.findOne({ email, AccNo });
+  if (customer) return res.send("Already Registerd");
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) return res.send(err.message);
+    bcrypt.hash(password, salt, async function (err, hash) {
+      if (err) return res.send(err.message);
+      else {
+        let customer = await customerModel.create({
+          name,
+          Ph_No,
+          AccNo,
+          Branch,
+          IFSC,
+          email,
+          password: hash,
+        });
+        res.send(customer);
+      }
+    });
+  });
+  };
 module.exports.deleteemployee = async function (req, res) {
   let deletedEmployee = await employeeModel.findOneAndDelete({_id:req.params.id});
   res.cookie("token", "");
