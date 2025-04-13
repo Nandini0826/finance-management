@@ -84,5 +84,4 @@ module.exports.deleteemployee = async function (req, res) {
   res.send(deletedEmployee);
   //   //res.redirect("/");
   //   //req.flash("User id deleted Successfully!");
-
 };
