@@ -70,7 +70,8 @@ h2 {
 /* Input fields */
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="number"] {
   width: 100%;
   padding: 12px 14px;
   margin-bottom: 20px;
@@ -110,7 +111,8 @@ background: linear-gradient(90deg, rgba(112,114,119,1) 100%, rgba(0,212,255,1) 1
 
 button:hover {
   background: rgb(32,64,150);
-  background: linear-gradient(90deg, rgba(32,64,150,1) 11%, rgba(0,212,255,1) 100%);    transform: translateY(-2px);
+  background: linear-gradient(90deg, rgba(32,64,150,1) 11%, rgba(0,212,255,1) 100%);    
+  transform: translateY(-2px);
 }
 
 footer {

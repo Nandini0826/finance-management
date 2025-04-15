@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Home Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .icon-button {
+      @apply bg-white p-2 rounded-lg shadow-md hover:bg-gray-200 transition;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen relative">
+
+  <!-- Success Message -->
+  <% if(success.length>0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 p-3 rounded-md bg-blue-500">
+      <span class="text-white"><%= success %></span>
+    </div>
+  <% } %>
+
+  <!-- Dashboard Icon -->
+  <div class="absolute top-4 right-4 z-10">
+    <button id="dashboardBtn" class="icon-button">
+      <img src="https://img.icons8.com/ios-filled/24/000000/menu--v1.png" alt="Dashboard" />
+    </button>
+  </div>
+
+  <!-- Dashboard Menu -->
+  <div id="dashboardMenu" class="hidden absolute top-16 right-4 bg-white rounded-xl shadow-xl p-4 w-48 z-20">
+    <ul class="space-y-2 text-gray-700">
+      <li><a href="/user/changePassword">Change Password</a></li>
+      <li><a href="/user/changeMPIN">Change MPIN</a></li>
+      <li><a href="/user/logout" class="text-red-500">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Container Centered -->
+  <div class="flex justify-center items-center min-h-screen pt-16">
+    <div class="max-w-xl w-full mx-4 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-lg space-y-8">
+      
+      <!-- User Info Section -->
+      <section class="text-center">
+        <h2 class="text-xl font-bold text-gray-800 mb-2">
+          Welcome, <span class="text-blue-600"><%= user.name %></span>
+        </h2>
+        <p class="text-gray-700">Account No: <strong><%= user.AccNo %></strong></p>
+        <p class="text-gray-700">Balance: <strong><%= user.Balance %></strong></p>
+      </section>
+
+      <!-- Loan Section -->
+      <section class="bg-gray-200/50 rounded-xl p-4">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Loan</h3>
+        <div class="flex justify-center">
+          <!-- Apply Loan -->
+          <div class="flex flex-col items-center">
+            <button class="icon-button">
+              <img src="https://img.icons8.com/ios-filled/50/000000/request-money.png"/>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- JavaScript to toggle dashboard menu -->
+  <script>
+    const dashboardBtn = document.getElementById("dashboardBtn");
+    const dashboardMenu = document.getElementById("dashboardMenu");
+
+    dashboardBtn.addEventListener("click", () => {
+      dashboardMenu.classList.toggle("hidden");
+    });
+
+    // Optional: Close menu if clicked outside
+    window.addEventListener("click", (e) => {
+      if (!dashboardBtn.contains(e.target) && !dashboardMenu.contains(e.target)) {
+        dashboardMenu.classList.add("hidden");
+      }
+    });
+  </script>
+
+</body>
+</html>

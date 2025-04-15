@@ -3,79 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Change Password</title>
+  <title>Set MPIN</title>
   <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f4f4f4;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
+      background-color: #f2f2f2;
       margin: 0;
     }
 
-    .change-pass-container {
-      background-color: white;
+    .form-box {
+      background: #fff;
       padding: 30px 40px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
+      width: 300px;
     }
 
-    .change-pass-container h2 {
+    .form-box h2 {
       margin-bottom: 20px;
-      color: #0056b3;
     }
 
-    .change-pass-container label {
-      display: block;
-      text-align: left;
-      margin: 10px 0 5px;
-    }
-
-    .change-pass-container input {
+    .form-box input {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
     }
 
-    .change-pass-container button {
-      padding: 10px 20px;
+    .form-box button {
       width: 100%;
-      background-color: #007bff;
+      padding: 10px;
+      background-color: #007BFF;
       color: white;
       border: none;
-      border-radius: 5px;
-      font-weight: bold;
+      border-radius: 8px;
       cursor: pointer;
     }
 
-    .change-pass-container button:hover {
+    .form-box button:hover {
       background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <div class="change-pass-container">
+  <% if(error.length>0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500">
+        <span class="inline-block mt-1 mb-1 text-white">
+            <%=error%>
+        </span> 
+    </div>   
+    <% } %>
+    <% if(success.length>0) { %>
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+            <span class="inline-block mt-1 mb-1 text-white">
+                <%=success%>
+            </span> 
+        </div>   
+    <% } %>
+  <div class="main-container">
+  <div class="form-box">
     <h2>Change Password</h2>
-    <form action="/changePassword" method="POST">
-      <label for="oldPassword">Old Password</label>
-      <input type="password" id="oldPassword" name="oldPassword" required />
-
-      <label for="newPassword">New Password</label>
-      <input type="password" id="newPassword" name="newPassword" required />
-
-      <label for="confirmPassword">Confirm New Password</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" required />
-
+    <form action="/user/changePassword" method="POST">
+      <input type="password" name="oldPassword" placeholder="Enter Old Password" required />
+      <input type="password" name="newPassword" placeholder="Enter new password" required />
+      <input type="password" name="ConfirmPassword" placeholder="Confirm password" required />
       <button type="submit">Change Password</button>
     </form>
   </div>
+
 </body>
 </html>

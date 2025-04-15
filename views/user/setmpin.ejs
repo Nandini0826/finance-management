@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Set MPIN</title>
   <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -53,12 +54,26 @@
   </style>
 </head>
 <body>
-
+  <% if(error.length>0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500">
+        <span class="inline-block mt-1 mb-1 text-white">
+            <%=error%>
+        </span> 
+    </div>   
+    <% } %>
+    <% if(success.length>0) { %>
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+            <span class="inline-block mt-1 mb-1 text-white">
+                <%=success%>
+            </span> 
+        </div>   
+    <% } %>
+  <div class="main-container">
   <div class="form-box">
     <h2>Set MPIN</h2>
-    <form action="/setmpin" method="POST">
-      <input type="password" name="mpin" placeholder="Enter MPIN" required />
-      <input type="password" name="confirmMpin" placeholder="Confirm MPIN" required />
+    <form action="/user/setMPIN" method="POST">
+      <input type="password" name="MPIN" placeholder="Enter MPIN" required />
+      <input type="password" name="ConfirmMPIN" placeholder="Confirm MPIN" required />
       <button type="submit">Set MPIN</button>
     </form>
   </div>

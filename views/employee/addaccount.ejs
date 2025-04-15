@@ -5,20 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Add Account</title>
   <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
+  <% if(error.length>0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500">
+        <span class="inline-block mt-1 mb-1 text-white">
+            <%=error%>
+        </span> 
+    </div>   
+    <% } %>
+    <% if(success.length>0) { %>
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+            <span class="inline-block mt-1 mb-1 text-white">
+                <%=success%>
+            </span> 
+        </div>   
+    <% } %>
   <div class="main-container">
     <h1>Create a New Bank Account</h1>
-    <form action="/registercustomer" method="POST" class="form-box">
+    <form action="/employee/registerCustomer" method="POST" class="form-box">
 
       <label>Name</label>
       <input type="text" name="name" placeholder="Enter full name" required />
 
       <label>Phone Number</label>
-      <input type="text" name="Ph_No" placeholder="Enter phone number" required />
+      <input type="number" name="Ph_No" placeholder="Enter phone number" required />
 
       <label>Account Number</label>
-      <input type="text" name="AccNo" placeholder="Enter account number" required />
+      <input type="number" name="AccNo" placeholder="Enter account number" required />
 
       <label>Email</label>
       <input type="email" name="email" placeholder="Enter email" required />
@@ -30,10 +45,10 @@
       <input type="number" name="amount" placeholder="Enter initial amount" required />
 
       <label>IFSC Code</label>
-      <input type="text" name="ifsc" placeholder="Enter IFSC code" required />
+      <input type="text" name="IFSC" placeholder="Enter IFSC code" required />
 
       <label>Branch</label>
-      <input type="text" name="branch" placeholder="Enter branch name" required />
+      <input type="text" name="Branch" placeholder="Enter branch name" required />
 
       <button type="submit">Create Account</button>
     </form>

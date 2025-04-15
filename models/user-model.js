@@ -9,7 +9,10 @@ const userSchema = mongoose.Schema({
   email: String,
   MPIN: Number,
   password: String,
-  Balance: Number,
+  Balance: {
+    type: Number,
+    default: 0,
+  },
   Online_Registered: {
     type: Boolean,
     default: false,
